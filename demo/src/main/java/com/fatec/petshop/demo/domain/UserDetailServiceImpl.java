@@ -1,6 +1,5 @@
-package com.fatec.petshop.demo;
+package com.fatec.petshop.demo.domain;
 
-import com.fatec.petshop.demo.domain.Usuario;
 import com.fatec.petshop.demo.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

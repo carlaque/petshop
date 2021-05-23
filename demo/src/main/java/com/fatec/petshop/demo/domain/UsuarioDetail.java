@@ -1,37 +1,36 @@
-package com.fatec.petshop.demo;
+package com.fatec.petshop.demo.domain;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import com.fatec.petshop.demo.domain.Usuario;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserDetailsImpl implements UserDetails {
+public class UsuarioDetail implements UserDetails{
 
-    private Usuario user;
 
-    public UserDetailsImpl(Usuario username) {
-        this.user = user;
+    private Usuario usuario;
+
+    public UsuarioDetail(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        GrantedAuthority ga = new SimpleGrantedAuthority(user.getRole());
+        GrantedAuthority ga = new SimpleGrantedAuthority(usuario.getRole());
         System.out.println("GRANTED AUTHORITY==>" + ga.toString());
         return Arrays.asList(ga);
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return usuario.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return usuario.getUsername();
     }
 
     @Override
@@ -53,4 +52,5 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    
 }
