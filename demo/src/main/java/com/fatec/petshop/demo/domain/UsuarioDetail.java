@@ -19,7 +19,6 @@ public class UsuarioDetail implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         GrantedAuthority ga = new SimpleGrantedAuthority(usuario.getRole());
-        System.out.println("GRANTED AUTHORITY==>" + ga.toString());
         return Arrays.asList(ga);
     }
 

@@ -31,14 +31,12 @@ public class JwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest reqhttp = (HttpServletRequest) request;
-        System.out.printf("Filtro JWT Path ==>(%s) %n", reqhttp.getServletPath());
         if ("/login".equals(reqhttp.getServletPath())) {
             chain.doFilter(request, response);
         } else {
             String authHeader = reqhttp.getHeader("Authorization");
             if (authHeader != null) {
                 String token = authHeader.substring(7);
-                System.out.printf("Token ==>(%s) %n", token);
                 String user = JwtUtil.getAuthentication(token);
                 UsernamePasswordAuthenticationToken upAuth = new UsernamePasswordAuthenticationToken(user, null,
                         Collections.singletonList(new SimpleGrantedAuthority("USER")));
