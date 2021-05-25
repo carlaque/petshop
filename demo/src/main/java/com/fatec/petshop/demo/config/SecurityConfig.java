@@ -1,6 +1,7 @@
 package com.fatec.petshop.demo.config;
 
 import com.fatec.petshop.demo.service.UsuarioService;
+import com.fatec.petshop.demo.utils.JwtFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,14 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UsuarioService usuarioService;
 
-    // @Autowired
-    // private JWTFilter jwtFilter;
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) {
@@ -40,9 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/aluno/add/**").hasAuthority("ADMIN")
             .antMatchers("/**").denyAll()
             .and()
-            // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .sessionManagement()
-            // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .csrf().disable()
             .formLogin().disable();
@@ -50,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        //return NoOpPasswordEncoder.getInstance();
         return new BCryptPasswordEncoder();
     }
 
