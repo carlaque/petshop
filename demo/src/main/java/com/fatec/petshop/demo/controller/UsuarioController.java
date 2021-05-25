@@ -1,5 +1,6 @@
 package com.fatec.petshop.demo.controller;
 
+import com.fatec.petshop.demo.domain.UserDetailServiceImpl;
 import com.fatec.petshop.demo.domain.UsuarioCredential;
 import com.fatec.petshop.demo.service.UsuarioService;
 import com.fatec.petshop.demo.utils.JwtUtil;
@@ -21,8 +22,8 @@ public class UsuarioController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    // @Autowired
-    // userDetailServiceImpl userDetailServiceImpl;
+    @Autowired
+    UserDetailServiceImpl userDetailServiceImpl;
 
     @Autowired
     UsuarioService usuarioService;
